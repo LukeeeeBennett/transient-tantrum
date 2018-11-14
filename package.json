@@ -1,0 +1,25 @@
+{
+  "name": "transient-tantrum",
+  "version": "1.0.0",
+  "description": "Target a GitLab CI job to retry N times to find transient failures.",
+  "main": "transient-tantrum.js",
+  "author": "Luke Bennett <contact@luke.run>",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "axios": "^0.18.0",
+    "yargs": "^12.0.2"
+  },
+  "devDependencies": {
+    "prettier": "^1.15.2"
+  },
+  "scripts": {
+    "setup": "chmod +x ./transient-tantrum",
+    "start": "./transient-tantrum",
+    "prettier": "prettier --write ./**/*.js"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "trailingComma": "all"
+  }
+}
