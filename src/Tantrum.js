@@ -8,6 +8,7 @@ const Tantrum = {
   jobName: undefined,
   retryCount: undefined,
   pipeline: undefined,
+  waitDuration: undefined,
 
   init() {
     this.client = Client.create(process.env.GITLAB_PRIVATE_ACCESS_TOKEN);
@@ -15,13 +16,14 @@ const Tantrum = {
     return this;
   },
 
-  run({ projectPath, mergeRequestId, jobName, retryCount }) {
+  run({ projectPath, mergeRequestId, jobName, retryCount, waitDuration }) {
     console.log('\n\nStarting tantrum...\n\n');
 
     this.projectPath = projectPath;
     this.mergeRequestId = mergeRequestId;
     this.jobName = jobName;
     this.retryCount = retryCount;
+    this.waitDuration = waitDuration;
 
     return this.client
       .getLatestMergeRequestPipeline(projectPath, mergeRequestId)
@@ -33,9 +35,9 @@ const Tantrum = {
   },
 
   checkJob(job) {
-    console.log('Checking pipeline in 3 minutes...');
+    console.log(`Checking pipeline in ${this.waitDuration} minutes...`);
 
-    return setTimeoutPromise(60 * 1000 * 3)
+    return setTimeoutPromise(60 * 1000 * this.waitDuration)
       .then(() => this.client.getJob(this.projectPath, job.id))
       .then(job => this.report(job));
   },

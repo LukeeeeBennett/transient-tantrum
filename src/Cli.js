@@ -26,12 +26,16 @@ const Cli = {
       .positional('retryCount', {
         describe: 'Number of times to retry the job if it succeeds',
         default: 5,
+      })
+      .positional('waitDuration', {
+        describe: 'The duration in minutes to wait between checking the job status',
+        default: 3,
       });
   },
 
   configureYargs() {
     return Yargs.command(
-      '* <projectPath> <mergeRequestId> <jobName> [retryCount]',
+      '* <projectPath> <mergeRequestId> <jobName> [retryCount] [waitDuration]',
       'start a transient tantrum on a specific job for a given merge request',
       yargs => this.setupPositionalYargs(yargs),
       argv => this.tantrum.run(argv),
