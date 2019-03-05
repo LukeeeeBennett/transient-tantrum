@@ -7,6 +7,7 @@ transient failures on GitLab CI.
 
 If you think you have found a fix for a transient failure, you can retry
 the job a number of times to increase your confidence in the fix.
+This is not a replacement for debugging. You must still understand your fix.
 
 ____
 
